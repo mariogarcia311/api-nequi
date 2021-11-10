@@ -5,7 +5,7 @@ import Cookies from 'universal-cookie';
 
 export default function iniciar  ()  {
     const cookies=new Cookies;
-    const [state, setstate] = useState({celPhone:''})
+    const [state, setstate] = useState({celPhone:'',merchantCode:''})
     const handleChange=async(e)=>{
         setstate({
             ...state,
@@ -16,6 +16,7 @@ export default function iniciar  ()  {
         e.preventDefault()
         console.log(state)
         cookies.set('number',state.celPhone)
+        cookies.set('code',state.merchantCode)
         window.location.href='/'
     }
 
@@ -43,6 +44,17 @@ export default function iniciar  ()  {
                     id="celPhone" 
                     name="celPhone" 
                     aria-describedby="celPhone"
+                    onChange={handleChange}
+                    />
+				</div>
+                <div className="form-group">
+					<label htmlFor="merchantCode">Merchant Code</label>
+					<input 
+                    type="merchantCode" 
+                    className="form-control form-control-sm" 
+                    id="merchantCode" 
+                    name="merchantCode" 
+                    aria-describedby="merchantCode"
                     onChange={handleChange}
                     />
 				</div>

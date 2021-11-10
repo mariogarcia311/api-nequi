@@ -5,7 +5,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 class IONequi {
   static BASE_URL = 
-    'https://api.sandbox.nequi.com/payments/v2';
+    'http://localhost:8082/api/nequi';
   static URL = `${this.BASE_URL}`
 
  
@@ -16,8 +16,8 @@ class IONequi {
       const headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json', 
-        'Authorization': `Bearer ${aut}`,
-        'x-api-key':'ZxE9tijmN7ao7pCKT5tEw5v4Bhkf8jXO4aJWOeK9'
+        // 'Authorization': `Bearer ${aut}`,
+        // 'x-api-key':'ZxE9tijmN7ao7pCKT5tEw5v4Bhkf8jXO4aJWOeK9'
       };
 
  

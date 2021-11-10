@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import Cookies from 'universal-cookie';
 import { useRouter } from 'next/router'
 export const Layout = ({children}) => {
@@ -12,7 +13,8 @@ export const Layout = ({children}) => {
         }
     }
     const cerrar=async()=>{
-        cookies.remove('number',{path:'/'})
+        cookies.remove('code',{path:'/'})
+        cookies.remove('number',{path:'/'}) 
     }
 
     validation()
@@ -25,27 +27,29 @@ export const Layout = ({children}) => {
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
             </Head>
             <nav className="navbar navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar w/ text</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <div className="container-fluid">
+                    <Link className="nav-item" href="/">
+                    <a className="navbar-brand" href="#">Navbar w/ text</a>
+                    </Link>
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" onClick={cerrar} href="">cerrar sesión</a>
-                        </li>
+                    <div className="collapse navbar-collapse" id="navbarText">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <Link className="nav-item" href="/">
+                        <a className="nav-link active" aria-current="page" href="#">Home</a>
+                        </Link>
+                        <Link className="nav-item" href="/generateQR">
+                        <a className="nav-link" >Generar QR</a>
+                        </Link>
+                        <Link className="nav-item" href="/generateQR">
+                        <a className="nav-link" onClick={cerrar} href="">cerrar sesión</a>
+                        </Link>
                     </ul>
                     </div>
                 </div>
             </nav>
-            <main>{children}</main>
+            {children}
         </>
     )
 }

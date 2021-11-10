@@ -19,8 +19,8 @@ export default function Home() {
     const responseToken=await IONequiToken.post();
     const toke=responseToken.access_token;
     console.log('token',toke)
-    const responseCode=await qrCode.fetchGenerateCodeQR(toke,'1')
-    console.log(responseCode.ResponseMessage.ResponseHeader.Status)
+    // const responseCode=await qrCode.fetchGenerateCodeQR(toke,'1')
+    // console.log(responseCode.ResponseMessage.ResponseHeader.Status)
   }
   useEffect(() => {
     flujocompleto()
