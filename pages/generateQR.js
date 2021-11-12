@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-import { Button, Modal, ModalBody, ModalHeader, ModalDialog, ModalTitle, FormGroup, Label, Input, ModalFooter } from 'reactstrap'
+import { Button, Modal, ModalBody, ModalHeader, ModalDialog, ModalTitle, FormGroup, Label, Input, ModalFooter, Spinner } from 'reactstrap'
 import { Layout } from '../components/Layout'
 import QRCode from 'qrcode'
 import qrCode from '../business/qrCode'
 import Cookies from 'universal-cookie'
-
 const generateQR = () => {
-    const [state, setstate] = useState({value:''})
-    const [openModal, setOpenModal] = useState(false)
-    const [src, setSrc] = useState('')
+    const [state, setstate] = useState({value:''});
+    const [openModal, setOpenModal] = useState(false);
+    const [src, setSrc] = useState('');
+    const [loading, setLoading] = useState(false)
     const cookies=new Cookies;
     const handleChange=async(e)=>{
         setstate({
@@ -17,14 +17,16 @@ const generateQR = () => {
         })
     }
     const handleSubmit=async(e)=>{
+        setLoading(true)
         e.preventDefault()
         console.log(state)
         setOpenModal(true)
-        const response=qrCode.fetchGenerateCodeQR(state.value,cookies.get('code'))
-        console.log('response', response)
-        QRCode.toDataURL('bancadigital-'.concat('hola')).then((e)=>{
+        const response=await qrCode.fetchGenerateCodeQR(state.value,cookies.get('code'))
+        const qr=response.body.ResponseMessage.ResponseBody.any.generateCodeQRRS.codeQR;
+        QRCode.toDataURL('bancadigital-'.concat(qr)).then((e)=>{
             setSrc(e)
         })
+        setLoading(false)
     }
 
     return (
@@ -56,9 +58,23 @@ const generateQR = () => {
                         <ModalHeader>
                             código QR
                         </ModalHeader>
-                        <ModalBody className='row flex align-items-center justify-content-center'>
-                        <img src={src}/>
-                        </ModalBody>
+                        {loading ?
+                            <ModalBody className='row flex align-items-center justify-content-center spinnerModal'>
+                                <Spinner 
+                                style={{
+                                        width: "277px",
+                                        height: "277px",
+                                        border: "10px solid currentColor",
+                                        borderRightColor:"transparent "
+                                    }}
+                                color='primary' 
+                                />
+                            </ModalBody>
+                            :
+                            <ModalBody className='row flex align-items-center justify-content-center'>
+                                <img src={src}/>
+                            </ModalBody>
+                        }
                         <ModalFooter >
                             {/* <Button color="primary">Iniciar Sesión</Button> */}
                             <div className='flex align-items-center justify-content-center'>
@@ -69,14 +85,23 @@ const generateQR = () => {
                 </div>
             </div>
             <style jsx>{`
-       html,body { 
+        html,body { 
         height: 100%; 
-    }
+        }
     
-    img{
-        max-width:300px;
-    }
-      `}</style>
+        img{
+            max-width:300px;
+        }
+        .spinnerReactstrap{
+            width:100px !important;
+            height: 100px !important; 
+            border: 10px solid currentColor !important;  
+            border-right-color:transparent !important;
+        }
+        .spinnerModal{
+            height: auto%;
+        }
+        `}</style>
       
         </Layout>
     )

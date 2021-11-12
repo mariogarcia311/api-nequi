@@ -29,7 +29,7 @@ export const Layout = ({children}) => {
             <nav className="navbar navbar-dark bg-dark">
                 <div className="container-fluid">
                     <Link className="nav-item" href="/">
-                    <a className="navbar-brand" href="#">Navbar w/ text</a>
+                    <a className="navbar-brand" href="#">Nequi</a>
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>

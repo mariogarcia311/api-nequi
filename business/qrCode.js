@@ -65,5 +65,23 @@ export default class qrCode {
     }
     
   }
+  static fetchListLogsNequi = async (merchant) => {
+    const 
+      body={
+        merchant:merchant
+      }
+      
+    
 
+    try {
+      const response = await IONequi.post('/listlogsnequi', body);
+      if(!!response){
+      return response;
+      }
+    } catch (e) {
+      console.log('ERROR LIST LOGS NEQUI', e);
+      return 'error';
+    }
+    
+  }
 }
