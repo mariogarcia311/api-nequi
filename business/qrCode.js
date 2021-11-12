@@ -70,9 +70,6 @@ export default class qrCode {
       body={
         merchant:merchant
       }
-      
-    
-
     try {
       const response = await IONequi.post('/listlogsnequi', body);
       if(!!response){
@@ -82,6 +79,24 @@ export default class qrCode {
       console.log('ERROR LIST LOGS NEQUI', e);
       return 'error';
     }
-    
+  }
+  static fetchStatus = async (date,message,qr) => {
+    const 
+      body={
+        date: date,  
+        messageID: message,  
+        codeQR: qr,  
+        clientID: "12345"
+    }
+    try {
+      const response = await IONequi.post('/-services-paymentservice-getstatuspayment', body);
+      if(!!response){
+      return response;
+      }
+    } catch (e) {
+      console.log('ERROR LIST STATUS', e);
+      return 'error';
+    }
   }
 }
+
