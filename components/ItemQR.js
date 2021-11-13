@@ -26,6 +26,7 @@ export const ItemQR = ({item}) => {
         setLoading(false);
     }
     
+    
     return (
         <div className='col-md-7 col-10'>
           <Card className='mb-5'>
